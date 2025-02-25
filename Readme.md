@@ -11,7 +11,7 @@ This project aims to compile a diverse and unique list of the most unusual and c
 3. Ingredient Details: Information on the key ingredients that make each dosa special.
 4. Visuals: High-quality images of each dosa to entice users.
 
-## Tech Stack:**
+## Tech Stack:
 - **Frontend:** HTML, CSS, JavaScript
 - **Backend:** Node.js, Express.js
 - **Database:** MongoDB
