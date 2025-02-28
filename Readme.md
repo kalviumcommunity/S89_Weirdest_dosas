@@ -12,10 +12,12 @@ This project aims to compile a diverse and unique list of the most unusual and c
 4. Visuals: High-quality images of each dosa to entice users.
 
 ## Tech Stack:
-- **Frontend:** HTML, CSS, JavaScript
+- **Frontend:** HTML, CSS, JavaScript,React
 - **Backend:** Node.js, Express.js
 - **Database:** MongoDB
 - **Additional Tools:** GitHub for version control, Figma for UI/UX design
 
 ## Why This Project:
 I've chosen this project because it allows me to combine my love for culinary exploration with web development. Creating a list of weirdest dosas will provide a platform to showcase creativity in cooking while honing my skills in building user-friendly web applications.
+
+# Allow users to share and rate their own dosas creations
