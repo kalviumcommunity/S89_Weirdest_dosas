@@ -20,4 +20,4 @@ This project aims to compile a diverse and unique list of the most unusual and c
 ## Why This Project:
 I've chosen this project because it allows me to combine my love for culinary exploration with web development. Creating a list of weirdest dosas will provide a platform to showcase creativity in cooking while honing my skills in building user-friendly web applications.
 
-### Allow users to share and rate their own dosas creations.
+### Allow users to share and rate their own dosas creations
