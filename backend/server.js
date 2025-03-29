@@ -21,7 +21,7 @@ app.listen(8080,async()=>{
   }
 }) 
 
-app.use('/',router);
+app.use('',router);
 app.get('/',(req,res)=>{
   try{
     if(isConnectedToDataBase){
