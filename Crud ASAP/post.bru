@@ -1,0 +1,19 @@
+meta {
+  name: post
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:8080/post
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+      "name": "Cheesy Garlic Dosa",
+      "mainIngredients": ["Cheese", "Garlic", "Rice Batter"],
+      "description": "A rich, flavorful dosa loaded with melted cheese and roasted garlic."
+  }
+}
