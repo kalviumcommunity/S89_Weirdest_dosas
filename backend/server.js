@@ -4,6 +4,9 @@ const app = express();
 app.use(express.json());
 require('dotenv').config();
 const router= require('./router');
+const cors = require('cors');
+
+app.use(cors());
 
 app.get('/ping', (req, res) => {
   res.send('pong');

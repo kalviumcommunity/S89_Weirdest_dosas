@@ -10,7 +10,6 @@ const Card = ({ title, description }) => {
 };
 
 const styles = {
-    
   card: {
     border: '1px solid #ccc',
     borderRadius: '8px',
