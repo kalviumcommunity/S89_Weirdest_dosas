@@ -23,3 +23,4 @@ I've chosen this project because it allows me to combine my love for culinary ex
 ### Allow users to share and rate their own dosas creations.
 
 ### Deployment Link:[link] https://s89-weirdest-dosas.onrender.com/ping
+### Deployment Link:[link] https://s89-weirdest-dosas.pages.dev/
