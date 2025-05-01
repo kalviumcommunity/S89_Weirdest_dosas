@@ -28,3 +28,12 @@ export const deleteDosa = async (id) => {
         console.error("Error deleting dosa:", error);
     }
 };
+
+export const updateDosa = async (id, dosaData) => {
+    try {
+        const response = await axios.put(`${API_URL}/put/${id}`, dosaData);
+        return response.data;
+    } catch (error) {
+        console.error("Error updating dosa:", error);
+    }
+};
