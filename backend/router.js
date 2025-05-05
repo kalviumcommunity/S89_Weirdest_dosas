@@ -5,7 +5,7 @@ const Dosa = require('./Schema');
 router.post('/post', async (req, res) => {
     try {
         const dosa = req.body;
-        if (!dosa.name || !dosa.mainIngredients || !dosa.description) {
+        if (!dosa.mainIngredients || !dosa.name || !dosa.description) {
             return res.status(400).send({ msg: "Enter all name, mainIngredients, description" });
         }
         const newDosa = new Dosa(dosa); // Corrected model reference
