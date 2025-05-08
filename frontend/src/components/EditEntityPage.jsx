@@ -7,8 +7,20 @@ const EditEntityPage = () => {
   const navigate = useNavigate();
   const [form, setForm] = useState({ name: "", mainIngredients: "", description: "" });
   const [loading, setLoading] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
+    // Check if user is logged in
+    const loggedInUser = localStorage.getItem('user');
+    if (!loggedInUser) {
+      // Redirect to login if not authenticated
+      alert("Please log in to edit dosas");
+      navigate('/login');
+      return;
+    }
+
+    setCurrentUser(JSON.parse(loggedInUser));
+
     const fetchDosa = async () => {
       setLoading(true);
       const dosas = await getDosas();
@@ -19,11 +31,15 @@ const EditEntityPage = () => {
           mainIngredients: (dosa.mainIngredients || []).join(", "),
           description: dosa.description || ""
         });
+      } else {
+        alert("Dosa not found");
+        navigate('/add-entity');
       }
       setLoading(false);
     };
+
     fetchDosa();
-  }, [id]);
+  }, [id, navigate]);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });

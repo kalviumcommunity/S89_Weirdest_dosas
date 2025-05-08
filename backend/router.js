@@ -5,8 +5,8 @@ const Dosa = require('./Schema');
 router.post('/post', async (req, res) => {
     try {
         const dosa = req.body;
-        if (!dosa.mainIngredients || !dosa.name || !dosa.description) {
-            return res.status(400).send({ msg: "Enter all name, mainIngredients, description" });
+        if (!dosa.mainIngredients || !dosa.name || !dosa.description || !dosa.userId) {
+            return res.status(400).send({ msg: "Enter all name, mainIngredients, description, userId" });
         }
         const newDosa = new Dosa(dosa); // Corrected model reference
         const savedDosa = await newDosa.save();
@@ -18,7 +18,20 @@ router.post('/post', async (req, res) => {
 
 router.get('/get', async (req, res) => {
     try {
-        const dosas = await Dosa.find(); // Corrected model reference
+        const { userId, created_by } = req.query;
+        let query = {};
+
+        // If userId is provided, filter dosas by that user
+        if (userId) {
+            query.userId = userId;
+        }
+
+        // If created_by is provided, filter dosas by creator
+        if (created_by) {
+            query.created_by = created_by;
+        }
+
+        const dosas = await Dosa.find(query);
         return res.status(200).send({ msg: "Dosas", data: dosas });
     } catch (error) {
         return res.status(500).send({ msg: "Something went wrong" });
