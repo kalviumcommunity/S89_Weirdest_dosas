@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const app = express();
 app.use(express.json());
 require('dotenv').config();
-const router= require('./router');
+const router = require('./router');
+const userRouter = require('./userRouter');
 const cors = require('cors');
 
 app.use(cors());
@@ -22,9 +23,10 @@ app.listen(8080,async()=>{
     console.log(err);
 
   }
-}) 
+})
 
-app.use('',router);
+app.use('', router);
+app.use('/users', userRouter);
 app.get('/',(req,res)=>{
   try{
     if(isConnectedToDataBase){

@@ -11,26 +11,46 @@
     padding: 0 20px;
     z-index: 1000; /* Ensures the navbar stays above other elements */
   }
-  
-  .nav-links {
 
+  .nav-links {
     display: flex;
     gap: 20px;
     list-style: none;
     margin: 0;
     padding: 0;
+    width: 100%;
   }
-  
+
   .nav-links li {
     font-size: 1rem;
   }
-  
+
   .nav-links li a {
     text-decoration: none;
     color: #333;
     transition: color 0.3s ease;
   }
-  
+
   .nav-links li a:hover {
+    color: #0077cc;
+  }
+
+  .logout-btn {
+    background: none;
+    border: none;
+    color: #333;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0;
+    transition: color 0.3s ease;
+  }
+
+  .logout-btn:hover {
+    color: #0077cc;
+  }
+
+  .user-greeting {
+    margin-left: auto;
+    font-weight: bold;
     color: #0077cc;
   }

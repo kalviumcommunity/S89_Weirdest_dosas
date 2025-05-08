@@ -2,9 +2,25 @@ import axios from 'axios';
 
 const API_URL = 'http://localhost:8080';
 
-export const getDosas = async () => {
+export const getDosas = async (userId, created_by) => {
     try {
-        const response = await axios.get(`${API_URL}/get`);
+        let url = `${API_URL}/get`;
+        const params = new URLSearchParams();
+
+        if (userId) {
+            params.append('userId', userId);
+        }
+
+        if (created_by) {
+            params.append('created_by', created_by);
+        }
+
+        const queryString = params.toString();
+        if (queryString) {
+            url += `?${queryString}`;
+        }
+
+        const response = await axios.get(url);
         return response.data.data;
     } catch (error) {
         console.error("Error fetching dosas:", error);
@@ -28,3 +44,44 @@ export const deleteDosa = async (id) => {
         console.error("Error deleting dosa:", error);
     }
 };
+
+export const updateDosa = async (id, dosaData) => {
+    try {
+        const response = await axios.put(`${API_URL}/put/${id}`, dosaData);
+        return response.data;
+    } catch (error) {
+        console.error("Error updating dosa:", error);
+    }
+};
+
+export const login = async (loginData) => {
+    try {
+        const response = await axios.post(`${API_URL}/users/login`, loginData);
+        return response;
+    } catch (error) {
+        console.error("Error logging in:", error);
+        throw error; // Re-throw the error so it can be caught by the caller
+    }
+};
+
+export const signUp = async (signUpData) => {
+    try {
+        const response = await axios.post(`${API_URL}/users/register`, signUpData);
+        return response;
+    } catch (error) {
+        console.error("Error signing up:", error);
+        throw error; // Re-throw the error so it can be caught by the caller
+    }
+};
+
+export const getUsers = async () => {
+    try {
+        const response = await axios.get(`${API_URL}/users/get`);
+        return response.data.data;
+    } catch (error) {
+        console.error("Error fetching users:", error);
+        return [];
+    }
+};
+
+
