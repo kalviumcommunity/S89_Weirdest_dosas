@@ -1,22 +1,56 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { logout, getCurrentUser } from '../api';
 import './Navbar.css';
 
 const Navbar = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    // Check if user is logged in
-    const loggedInUser = localStorage.getItem('user');
-    if (loggedInUser) {
-      setUser(JSON.parse(loggedInUser));
-    }
+    const checkAuth = async () => {
+      try {
+        // First try to get user from cookie
+        const userData = await getCurrentUser();
+
+        if (userData) {
+          setUser(userData);
+          // Update localStorage for backward compatibility
+          localStorage.setItem('user', JSON.stringify(userData));
+        } else {
+          // Fallback to localStorage if cookie auth fails
+          const loggedInUser = localStorage.getItem('user');
+          if (loggedInUser) {
+            setUser(JSON.parse(loggedInUser));
+          }
+        }
+      } catch (error) {
+        console.error("Error checking authentication:", error);
+        // Clear potentially invalid data
+        localStorage.removeItem('user');
+        setUser(null);
+      }
+    };
+
+    checkAuth();
   }, []);
 
-  const handleLogout = () => {
-    localStorage.removeItem('user');
-    setUser(null);
-    window.location.href = '/';
+  const handleLogout = async () => {
+    try {
+      // Call the logout API endpoint
+      await logout();
+
+      // Clear local storage
+      localStorage.removeItem('user');
+
+      // Update state
+      setUser(null);
+
+      // Redirect to home page
+      window.location.href = '/';
+    } catch (error) {
+      console.error("Error during logout:", error);
+      alert("Failed to logout. Please try again.");
+    }
   };
 
   return (

@@ -56,7 +56,9 @@ export const updateDosa = async (id, dosaData) => {
 
 export const login = async (loginData) => {
     try {
-        const response = await axios.post(`${API_URL}/users/login`, loginData);
+        const response = await axios.post(`${API_URL}/users/login`, loginData, {
+            withCredentials: true // This is important for cookies to be sent/received
+        });
         return response;
     } catch (error) {
         console.error("Error logging in:", error);
@@ -84,4 +86,27 @@ export const getUsers = async () => {
     }
 };
 
+export const logout = async () => {
+    try {
+        const response = await axios.post(`${API_URL}/users/logout`, {}, {
+            withCredentials: true
+        });
+        return response;
+    } catch (error) {
+        console.error("Error logging out:", error);
+        throw error;
+    }
+};
+
+export const getCurrentUser = async () => {
+    try {
+        const response = await axios.get(`${API_URL}/users/current`, {
+            withCredentials: true
+        });
+        return response.data.data;
+    } catch (error) {
+        console.error("Error getting current user:", error);
+        return null;
+    }
+};
 

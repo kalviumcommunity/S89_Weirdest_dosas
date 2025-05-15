@@ -27,7 +27,10 @@ const Login = () => {
             const response = await login(form);
 
             if (response.data.msg === "User logged in successfully") {
+                // Store user data in localStorage for backward compatibility
                 localStorage.setItem("user", JSON.stringify(response.data.data));
+
+                // Redirect to home page
                 window.location.href = "/";
             }
         } catch (error) {
