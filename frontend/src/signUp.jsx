@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { signUp } from './api';
+import { signUp, setAuthToken } from './api';
 import { Link } from 'react-router-dom';
 
 const SignUp = () => {
@@ -32,8 +32,21 @@ const SignUp = () => {
             const response = await signUp(form);
 
             if (response.data.msg === "User created successfully") {
-                alert("Account created successfully! Please log in.");
-                window.location.href = "/login";
+                // If auto-login is enabled (token is returned with registration)
+                if (response.data.token) {
+                    // Set token in axios headers for future requests
+                    setAuthToken(response.data.token);
+
+                    // Store user data
+                    localStorage.setItem("user", JSON.stringify(response.data.data));
+
+                    // Redirect to home page (auto-login)
+                    window.location.href = "/";
+                } else {
+                    // Otherwise redirect to login page
+                    alert("Account created successfully! Please log in.");
+                    window.location.href = "/login";
+                }
             }
         } catch (error) {
             console.error("Error signing up:", error);

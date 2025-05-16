@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { login } from './api';
+import { login, setAuthToken } from './api';
 import { Link } from 'react-router-dom';
 
 const Login = () => {
@@ -29,6 +29,11 @@ const Login = () => {
             if (response.data.msg === "User logged in successfully") {
                 // Store user data in localStorage for backward compatibility
                 localStorage.setItem("user", JSON.stringify(response.data.data));
+
+                // Set token in axios headers for future requests
+                if (response.data.token) {
+                    setAuthToken(response.data.token);
+                }
 
                 // Redirect to home page
                 window.location.href = "/";

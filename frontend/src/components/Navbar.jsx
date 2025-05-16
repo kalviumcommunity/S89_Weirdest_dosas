@@ -41,6 +41,10 @@ const Navbar = () => {
 
       // Clear local storage
       localStorage.removeItem('user');
+      localStorage.removeItem('token');
+
+      // Clear auth token from axios headers
+      setAuthToken(null);
 
       // Update state
       setUser(null);

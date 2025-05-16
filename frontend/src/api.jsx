@@ -59,6 +59,12 @@ export const login = async (loginData) => {
         const response = await axios.post(`${API_URL}/users/login`, loginData, {
             withCredentials: true // This is important for cookies to be sent/received
         });
+
+        // Store token in localStorage for client-side access if needed
+        if (response.data.token) {
+            localStorage.setItem('token', response.data.token);
+        }
+
         return response;
     } catch (error) {
         console.error("Error logging in:", error);
@@ -68,7 +74,15 @@ export const login = async (loginData) => {
 
 export const signUp = async (signUpData) => {
     try {
-        const response = await axios.post(`${API_URL}/users/register`, signUpData);
+        const response = await axios.post(`${API_URL}/users/register`, signUpData, {
+            withCredentials: true // This is important for cookies to be sent/received
+        });
+
+        // Store token in localStorage for client-side access if needed
+        if (response.data.token) {
+            localStorage.setItem('token', response.data.token);
+        }
+
         return response;
     } catch (error) {
         console.error("Error signing up:", error);
@@ -91,6 +105,10 @@ export const logout = async () => {
         const response = await axios.post(`${API_URL}/users/logout`, {}, {
             withCredentials: true
         });
+
+        // Remove token from localStorage
+        localStorage.removeItem('token');
+
         return response;
     } catch (error) {
         console.error("Error logging out:", error);
@@ -100,13 +118,25 @@ export const logout = async () => {
 
 export const getCurrentUser = async () => {
     try {
+        // Get token from cookie (handled by withCredentials)
         const response = await axios.get(`${API_URL}/users/current`, {
             withCredentials: true
         });
         return response.data.data;
     } catch (error) {
         console.error("Error getting current user:", error);
+        // Clear any invalid token
+        localStorage.removeItem('token');
         return null;
+    }
+};
+
+// Helper function to set auth token in axios headers
+export const setAuthToken = (token) => {
+    if (token) {
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    } else {
+        delete axios.defaults.headers.common['Authorization'];
     }
 };
 
